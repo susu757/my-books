@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} - {{ .Site.Title }}</title>
+    <style>
+        :root { --bg: #f6f4ec; --text: #333; --side: #e8e6df; --acc: #8b4513; }
+        body.dark { --bg: #1a1a1a; --text: #ccc; --side: #252525; --acc: #d4a373; }
+        body { margin:0; font-family:"Georgia",serif; background:var(--bg); color:var(--text); display:flex; min-height:100vh; transition:0.3s; }
+        aside { width:250px; background:var(--side); padding:20px; height:100vh; position:fixed; overflow-y:auto; }
+        main { margin-left:250px; padding:40px 80px; max-width:800px; flex:1; }
+        a { text-decoration:none; color:var(--text); display:block; padding:8px 0; border-bottom:1px dashed #999; }
+        a:hover { color:var(--acc); }
+        .btn { position:fixed; top:20px; right:20px; padding:10px; background:var(--acc); color:#fff; border:none; border-radius:5px; cursor:pointer; }
+        @media(max-width:768px){ aside{display:none;} main{margin-left:0; padding:20px;} }
+    </style>
+</head>
+<body>
+    <button class="btn" onclick="document.body.classList.toggle('dark')">🌗 模式切换</button>
+    <aside>
+        <h3>📚 目录</h3>
+        <a href="/">🏠 封面</a>
+        {{ range .Site.RegularPages }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}
+    </aside>
+    <main>
+        {{ if .IsHome }}
+            <div style="text-align:center;margin-top:50px;"><h1>{{ .Site.Title }}</h1><p>{{ .Site.Params.description }}</p><p>👈 请点击左侧目录开始阅读</p></div>
+        {{ else }}
+            <h1>{{ .Title }}</h1>
+            <div>{{ .Content }}</div>
+            <div style="margin-top:50px;display:flex;justify-content:space-between;">
+                {{ with .PrevInSection }}<a href="{{ .RelPermalink }}" style="border:none">⬅️ 上一章</a>{{ end }}
+                {{ with .NextInSection }}<a href="{{ .RelPermalink }}" style="border:none">下一章 ➡️</a>{{ end }}
+            </div>
+        {{ end }}
+    </main>
+</body>
+</html>
