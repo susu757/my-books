@@ -1,0 +1,9 @@
+baseURL = "https://blog.isusu.qzz.io/"
+languageCode = "zh-cn"
+title = "慧慧的云书房"
+theme = "NovelReader"
+paginate = 20
+
+[params]
+  description = "沉浸式在线阅读"
+  author = "慧慧"
